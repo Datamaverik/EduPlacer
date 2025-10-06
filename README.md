@@ -1,60 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 ## Getting Started
 
-First, run the development server:
+docker compose up --build -d
+docker compose exec app pnpm exec prisma migrate reset --force --skip-seed
+
+## Quick start (commands only)
+
+Run these commands to get a developer environment up quickly:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# clone
+git clone https://github.com/<your-username>/edu-placer.git
+cd edu-placer
+
+# (install Node 18+ and pnpm if you don't have them)
+# https://nodejs.org/ and https://pnpm.io/
+
+# install dependencies
+pnpm install
+
+# start local stack (build images and run containers)
+docker compose up --build -d
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If you need to completely reset the Postgres data (destructive):
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+docker compose down -v
+docker compose up --build -d
+docker compose exec app pnpm exec prisma migrate reset --force --skip-seed
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Run locally without Docker
 
-## Learn More
+1. Ensure you have a Postgres database running and set `DATABASE_URL` in your `.env` pointing at that DB (example: `postgresql://postgres:postgres@localhost:5432/eduplacer?schema=public`).
+2. Install dependencies
 
-To learn more about Next.js, take a look at the following resources:
+pnpm install
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+3. Generate Prisma client and apply migrations
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+pnpm exec prisma generate
+pnpm exec prisma migrate deploy
 
-## Deploy on Vercel
+4. Run dev server
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+pnpm run dev
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Prisma
 
+- Schema: `prisma/schema.prisma`
+- Generated client: `node_modules/.prisma/client` (imported from `lib/prisma.ts`)
 
-# create migration and apply to DB (development)
-pnpm exec prisma migrate dev --name init
+Common commands:
 
-# open Prisma Studio (web UI to view DB)
-pnpm exec prisma studio
+- Generate client: `pnpm exec prisma generate`
+- Create a migration (dev): `pnpm exec prisma migrate dev --name <name>`
+- Reset DB (dev, destructive): `pnpm exec prisma migrate reset --force --skip-seed`
 
-# graph ql play ground to run queries
-http://localhost:3000/api/graphql
+## Environment variables
 
-query example: 
+See `.env.example`. Key variables used by the app:
 
-query GetUsers {
-  users { id name email }
-}
+## Common Issues
 
-mutation CreateUser {
-  createUser(data: { name: "A", email: "a@example.com" }) {
-    id
-    name
-    email
-  }
-}
+- Port 5432 already in use: Another Postgres is running on your machine. Either stop it or change the host mapping in `docker-compose.yml`.
+- Entrypoint overwritten by bind-mount: The Dockerfile copies the entrypoint to `/usr/local/bin` so it won't be hidden by the project bind-mount during development. If you change the entrypoint, ensure it stays outside the bind-mounted directory.
+- Disk full when building images: check `docker system df` and consider `docker system prune -a --volumes` (destructive for images/containers/volumes not in use).

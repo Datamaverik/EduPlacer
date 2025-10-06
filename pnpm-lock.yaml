@@ -47,6 +47,9 @@ importers:
       next:
         specifier: 15.5.4
         version: 15.5.4(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
+      postgresql-client:
+        specifier: ^2.13.0
+        version: 2.13.0
       react:
         specifier: 19.1.0
         version: 19.1.0
@@ -295,6 +298,10 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
+
+  '@jsopen/objects@1.6.3':
+    resolution: {integrity: sha512-LNtPollREyfKNqE8GwCxjt4nyi7UuWqHxDbmCYwFzTCmAeFguAAyiLarw81kE2szoRCJzHZDkyEsfY5XyzhPTA==}
+    engines: {node: '>= 16.0'}
 
   '@next/env@15.5.4':
     resolution: {integrity: sha512-27SQhYp5QryzIT5uO8hq99C69eLQ7qkzkDPsk3N+GuS2XgOgoYEeOav7Pf8Tn4drECOVDsDg8oj+/DVy8qQL2A==}
@@ -701,6 +708,10 @@ packages:
     resolution: {integrity: sha512-uBq4egWHTcTt33a72vpSG0z3HnPuIl6NqYcTrKEg2azoEyl2hpW0zqlxysq2pK9HlDIHyHyakeYaYnSAwd8bow==}
     engines: {node: '>=12'}
 
+  doublylinked@2.5.6:
+    resolution: {integrity: sha512-oskbNBycNHjQ0Zg/5DMYiqFnSeblM2BSc2Ehu5+PyBay0ESlullPp0YEjlwtG3QtN4Fb7hC9USJqNyTMftl/1A==}
+    engines: {node: '>= 16.0'}
+
   dset@3.1.4:
     resolution: {integrity: sha512-2QF/g9/zTaPDc3BjNcVTGoBbXBgYfMTTceLaYcFJ/W9kggFUkhxD/hMEeuLKbugyef9SqAx8cpgwlIP/jinUTA==}
     engines: {node: '>=4'}
@@ -770,6 +781,9 @@ packages:
 
   jws@3.2.2:
     resolution: {integrity: sha512-YHlZCB6lMTllWDtSPHz/ZXTsi8S00usEV6v1tjq8tOUZzw7DpSDWVXjXDre6ed1w/pd495ODpHZYSdkRTsa0HA==}
+
+  lightning-pool@4.11.1:
+    resolution: {integrity: sha512-I/+aDkeFvKrdC204UcGbLuVTmGaSBP6F2VtWLuFtHCn0/bzuYKpei8Z+P4+HYE3lmJdGfNHVFjLeYLQaxmpymQ==}
 
   lightningcss-darwin-arm64@1.30.1:
     resolution: {integrity: sha512-c8JK7hyE65X1MHMN+Viq9n11RRC7hgin3HhYKhrMyaXflk5GVplZ60IxyoVtzILeKr+xAJwg6zK6sjTBJ0FKYQ==}
@@ -932,6 +946,9 @@ packages:
     engines: {node: ^14.16.0 || >=16.10.0}
     hasBin: true
 
+  obuf@1.1.2:
+    resolution: {integrity: sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==}
+
   ohash@2.0.11:
     resolution: {integrity: sha512-RdR9FQrFwNBNXAr4GixM8YaRZRJ5PUWbKYbE5eOsrwAjJW0q2REGcf79oYPsLyskQCZG1PLN+S/K1V00joZAoQ==}
 
@@ -955,6 +972,23 @@ packages:
     resolution: {integrity: sha512-3Ybi1tAuwAP9s0r1UQ2J4n5Y0G05bJkpUIO0/bI9MhwmD70S5aTWbXGBwxHrelT+XM1k6dM0pk+SwNkpTRN7Pg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  postgrejs@2.22.6:
+    resolution: {integrity: sha512-8HjW0UPXqX60jGmGTLV5IhRMY2Odilx5Ypkqiu2JzZxPL6J5X82IggkT9/FN8oulH8Ty7wknj8vzEaGUhC7X5Q==}
+    engines: {node: '>=16.0'}
+
+  postgres-bytea@3.0.0:
+    resolution: {integrity: sha512-CNd4jim9RFPkObHSjVHlVrxoVQXz7quwNFpz7RY1okNNme49+sVyiTvTRobiLV548Hx/hb1BG+iE7h9493WzFw==}
+    engines: {node: '>= 6'}
+
+  postgresql-client@2.13.0:
+    resolution: {integrity: sha512-GOSQstAJiHeIwXrvARCp0y7PMwfzf+Egg0KOn1MiggykvQFr4OO8FyT0x7Yc3hcPL4iLk47z9KeAbbdVCqTP0g==}
+    engines: {node: '>=16.0'}
+    deprecated: Package name 'postgresql-client' has been changed to 'postgrejs'. Please consider to update dependencies in your package.json
+
+  power-tasks@1.11.1:
+    resolution: {integrity: sha512-HrU2R+Fl2ICttjrhTpmy8tzdbcfsEXqB3eak2UAr+JPidiWeohWGVOqe+4+HnqitZIX14ofVpu/2IUCNjEo1dw==}
+    engines: {node: '>=16.0'}
+
   prisma@6.16.3:
     resolution: {integrity: sha512-4tJq3KB9WRshH5+QmzOLV54YMkNlKOtLKaSdvraI5kC/axF47HuOw6zDM8xrxJ6s9o2WodY654On4XKkrobQdQ==}
     engines: {node: '>=18.18'}
@@ -967,6 +1001,14 @@ packages:
 
   pure-rand@6.1.0:
     resolution: {integrity: sha512-bVWawvoZoBYpp6yIoQtQXHZjmz35RSVHnUOTefl8Vcjr8snTPY1wnpSPMWekcFwbxI6gtmT7rSYPFvz71ldiOA==}
+
+  putil-promisify@1.10.1:
+    resolution: {integrity: sha512-1jm0egJNrj5eBDRj15Cg08RNHDV91OVEHeeYjAFRcs663PXxFokndxcJAGbaO6CSErCTp8eTgC8vuOF+fvXIAA==}
+    engines: {node: '>= 14.0'}
+
+  putil-varhelpers@1.6.5:
+    resolution: {integrity: sha512-kyu+lE5xkc65ScgaIi6rNONLXeS7jGBxl1I0rzHVsFGAAQ45D/VkuEev+t09PFB943F+CqdWFLczH6ePk5TPAA==}
+    engines: {node: '>= 6.0'}
 
   rc9@2.1.2:
     resolution: {integrity: sha512-btXCnMmRIBINM2LDZoEmOogIZU7Qe7zn4BpomSKZ/ykbLObuBdvG+mFq11DL6fjH1DRwHhrlgtYWG96bJiC7Cg==}
@@ -1003,6 +1045,10 @@ packages:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
     engines: {node: '>=0.10.0'}
 
+  strict-typed-events@2.8.0:
+    resolution: {integrity: sha512-mDCPe06HIzzDliG09N9ypPvx2nDgAFl3IDJe8NNCoViDWYh0E98+02WJdZnUSFWiUphaRbUDbDksg/SgiaEBDA==}
+    engines: {node: '>=16.0'}
+
   styled-jsx@5.1.6:
     resolution: {integrity: sha512-qSVyDTeMotdvQYoHWLNGwRFJHC+i+ZvdBRYosOFgC+Wg1vx4frN2/RG/NA7SYqqvKNLf39P2LSRA2pu6n0XYZA==}
     engines: {node: '>= 12.0.0'}
@@ -1032,6 +1078,9 @@ packages:
 
   tinyexec@1.0.1:
     resolution: {integrity: sha512-5uC6DDlmeqiOwCPmK9jMSdOuZTh8bU39Ys6yidB+UTt5hfZUPGAypSgFRiEp+jbi9qH40BLDvy85jIU88wKSqw==}
+
+  ts-gems@3.11.3:
+    resolution: {integrity: sha512-zEAkPUvP9L7f6SmzXq3mtKnRr6nbWt2vMdGl2NO0b1stHFFtKcmNxZKLHyv5889gOp3InI4ki2WaZAtz85OJBg==}
 
   tslib@2.8.1:
     resolution: {integrity: sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==}
@@ -1245,6 +1294,10 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@jsopen/objects@1.6.3':
+    dependencies:
+      tslib: 2.8.1
 
   '@next/env@15.5.4': {}
 
@@ -1680,6 +1733,8 @@ snapshots:
 
   dotenv@16.6.1: {}
 
+  doublylinked@2.5.6: {}
+
   dset@3.1.4: {}
 
   ecdsa-sig-formatter@1.0.11:
@@ -1768,6 +1823,12 @@ snapshots:
     dependencies:
       jwa: 1.4.2
       safe-buffer: 5.2.1
+
+  lightning-pool@4.11.1:
+    dependencies:
+      doublylinked: 2.5.6
+      putil-promisify: 1.10.1
+      tslib: 2.8.1
 
   lightningcss-darwin-arm64@1.30.1:
     optional: true
@@ -1895,6 +1956,8 @@ snapshots:
       pkg-types: 2.3.0
       tinyexec: 1.0.1
 
+  obuf@1.1.2: {}
+
   ohash@2.0.11: {}
 
   pathe@2.0.3: {}
@@ -1921,6 +1984,31 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
+  postgrejs@2.22.6:
+    dependencies:
+      '@jsopen/objects': 1.6.3
+      doublylinked: 2.5.6
+      lightning-pool: 4.11.1
+      postgres-bytea: 3.0.0
+      power-tasks: 1.11.1
+      putil-promisify: 1.10.1
+      putil-varhelpers: 1.6.5
+      tslib: 2.8.1
+
+  postgres-bytea@3.0.0:
+    dependencies:
+      obuf: 1.1.2
+
+  postgresql-client@2.13.0:
+    dependencies:
+      postgrejs: 2.22.6
+
+  power-tasks@1.11.1:
+    dependencies:
+      doublylinked: 2.5.6
+      strict-typed-events: 2.8.0
+      tslib: 2.8.1
+
   prisma@6.16.3(typescript@5.9.3):
     dependencies:
       '@prisma/config': 6.16.3
@@ -1931,6 +2019,10 @@ snapshots:
       - magicast
 
   pure-rand@6.1.0: {}
+
+  putil-promisify@1.10.1: {}
+
+  putil-varhelpers@1.6.5: {}
 
   rc9@2.1.2:
     dependencies:
@@ -1984,6 +2076,12 @@ snapshots:
 
   source-map-js@1.2.1: {}
 
+  strict-typed-events@2.8.0:
+    dependencies:
+      putil-promisify: 1.10.1
+      ts-gems: 3.11.3
+      tslib: 2.8.1
+
   styled-jsx@5.1.6(react@19.1.0):
     dependencies:
       client-only: 0.0.1
@@ -2004,6 +2102,8 @@ snapshots:
       yallist: 5.0.0
 
   tinyexec@1.0.1: {}
+
+  ts-gems@3.11.3: {}
 
   tslib@2.8.1: {}
 
