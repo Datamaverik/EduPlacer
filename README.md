@@ -34,3 +34,27 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+
+# create migration and apply to DB (development)
+pnpm exec prisma migrate dev --name init
+
+# open Prisma Studio (web UI to view DB)
+pnpm exec prisma studio
+
+# graph ql play ground to run queries
+http://localhost:3000/api/graphql
+
+query example: 
+
+query GetUsers {
+  users { id name email }
+}
+
+mutation CreateUser {
+  createUser(data: { name: "A", email: "a@example.com" }) {
+    id
+    name
+    email
+  }
+}
