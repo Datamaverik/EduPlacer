@@ -32,7 +32,6 @@ services:
       - "3000:3000"
     volumes:
       - ./:/usr/app/:cached
-      - /usr/app/node_modules
     command: ["sh", "-c", ""] # entrypoint is used; keep blank
     tty: true
 
