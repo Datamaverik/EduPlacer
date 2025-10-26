@@ -83,3 +83,6 @@ out/
 pnpm-lock.yaml
 
 # Note: if you intentionally want pnpm lockfile in repo, remove the last entry above
+
+# User uploads (do not commit)
+public/uploads/

@@ -12,5 +12,57 @@ model User {
   name      String
   email     String   @unique
   password  String
+  imageUrl  String   @default("/images/placeholder-avatar.svg")
+  role      Role
+  yearOfStudy Int?
+  domain    Domain?
+  branch    Branch?
+  companies String[]        @default([])
+  companiesInterested String[] @default([])
   createdAt DateTime @default(now())
+
+  // Relations for follow requests
+  mentorRequestsReceived FollowRequest[] @relation("MentorRequests")
+  menteeRequestsSent     FollowRequest[] @relation("MenteeRequests")
+}
+
+model FollowRequest {
+  id        String        @id @default(uuid())
+  mentor    User          @relation("MentorRequests", fields: [mentorId], references: [id])
+  mentorId  String
+  mentee    User          @relation("MenteeRequests", fields: [menteeId], references: [id])
+  menteeId  String
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  @@unique([mentorId, menteeId])
+}
+
+enum Role {
+  MENTOR
+  MENTEE
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+enum Domain {
+  SOFTWARE
+  MANAGEMENT
+  MARKETING
+  ANALYST
+  OTHER
+}
+
+enum Branch {
+  CSE
+  ECE
+  ICE
+  MME
+  EEE
+  OTHER
 }
