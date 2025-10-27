@@ -32,7 +32,7 @@ export default function LoginPage() {
     }
     const token = j.data.login.token;
     localStorage.setItem("token", token);
-    router.push("/dashboard");
+    router.push("/landing");
   }
 
   return (

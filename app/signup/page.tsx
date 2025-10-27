@@ -72,7 +72,7 @@ export default function SignupPage() {
     const token = j.data.signup.token;
     // demo: store token in localStorage (NOT HttpOnly) — for production prefer HttpOnly cookies
     localStorage.setItem("token", token);
-    router.push("/dashboard");
+    router.push("/landing");
   }
 
   return (

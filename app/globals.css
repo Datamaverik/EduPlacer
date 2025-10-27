@@ -8,6 +8,13 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  /* Add commonly used Tailwind v3 color tokens so classes like bg-teal-600 work under Tailwind v4 @theme */
+  --color-teal-600: #0d9488;
+  --color-teal-500: #14b8a6;
+  --color-rose-600: #e11d48;
+  --color-rose-500: #f43f5e;
+  --color-indigo-600: #4f46e5;
+  --color-indigo-500: #6366f1;
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
@@ -128,7 +135,7 @@
   --animate-fourth: moveHorizontal 40s ease infinite;
   --animate-fifth: moveInCircle 20s ease infinite;
 }
- 
+
 @keyframes moveHorizontal {
   0% {
     transform: translateX(-50%) translateY(-10%);
@@ -140,7 +147,7 @@
     transform: translateX(-50%) translateY(-10%);
   }
 }
- 
+
 @keyframes moveInCircle {
   0% {
     transform: rotate(0deg);
@@ -152,7 +159,7 @@
     transform: rotate(360deg);
   }
 }
- 
+
 @keyframes moveVertical {
   0% {
     transform: translateY(-50%);

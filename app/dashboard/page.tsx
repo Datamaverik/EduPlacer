@@ -180,7 +180,6 @@ export function SparklesPreview() {
 
       {user?.role === "MENTEE" && (
         <div className="w-full max-w-5xl px-6 mt-8 text-white">
-
           <h2 className="text-2xl font-semibold mt-8 mb-2">Search mentors</h2>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
             <input
@@ -239,13 +238,15 @@ export function SparklesPreview() {
             Search
           </button>
           {/* Search results now replace the recommended list above */}
-          <h2 className="text-2xl text-center mt-4 font-semibold">Recommended mentors</h2>
+          <h2 className="text-2xl text-center mt-4 font-semibold">
+            Recommended mentors
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {recommended.map((m) => (
               <CometCard key={m.id}>
                 <button
                   type="button"
-                  className="my-10 flex w-full cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 saturate-0 md:my-8 md:p-4"
+                  className="my-10 flex w-full cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-8 md:p-4"
                   aria-label="View invite F7RA"
                   style={{
                     transformStyle: "preserve-3d",
@@ -296,12 +297,12 @@ export function SparklesPreview() {
         <div className="w-full max-w-5xl px-6 mt-8 text-white">
           <h2 className="text-2xl font-semibold mb-2">Your mentees</h2>
           <ul className="space-y-2">
-            <div className="flex">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {mentees.map((m) => (
                 <CometCard>
                   <button
                     type="button"
-                    className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 saturate-0 md:my-7 md:p-4"
+                    className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
                     aria-label="View invite F7RA"
                     style={{
                       transformStyle: "preserve-3d",
@@ -341,38 +342,59 @@ export function SparklesPreview() {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-8 mb-2">Pending requests</h2>
-          <ul className="space-y-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {pending.map((r) => (
-              <li
-                key={r.mentee.id}
-                className="flex items-center justify-between border border-neutral-800 rounded p-3"
-              >
-                <div>
-                  <div className="font-medium">{r.mentee.name}</div>
-                  <div className="text-sm text-neutral-400">
-                    {r.mentee.email}
+              <CometCard>
+                <div
+                  className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
+                  aria-label="View invite F7RA"
+                  style={{
+                    transformStyle: "preserve-3d",
+                    transform: "none",
+                    opacity: 1,
+                  }}
+                >
+                  <div className="mx-2 flex justify-center">
+                    <div className="relative mt-2 aspect-[3/4] w-full">
+                      <img
+                        loading="lazy"
+                        className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover contrast-75"
+                        alt="Invite background"
+                        src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        style={{
+                          boxShadow: "rgba(0, 0, 0, 0.05) 0px 5px 6px 0px",
+                          opacity: 1,
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="flex flex-col items-center">
+                    <div className="font-medium">{r.mentee.name}</div>
+                    <div className="text-sm text-neutral-400">
+                      {r.mentee.email}
+                    </div>
+                    <div className="space-x-2">
+                      <button
+                        onClick={() => respond(r.mentee.id, "ACCEPT")}
+                        className="text-sm px-3 py-1 rounded bg-teal-600 hover:bg-teal-500"
+                      >
+                        Accept
+                      </button>
+                      <button
+                        onClick={() => respond(r.mentee.id, "REJECT")}
+                        className="text-sm px-3 py-1 rounded bg-rose-600 hover:bg-rose-500"
+                      >
+                        Reject
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="space-x-2">
-                  <button
-                    onClick={() => respond(r.mentee.id, "ACCEPT")}
-                    className="text-sm px-3 py-1 rounded bg-teal-600 hover:bg-teal-500"
-                  >
-                    Accept
-                  </button>
-                  <button
-                    onClick={() => respond(r.mentee.id, "REJECT")}
-                    className="text-sm px-3 py-1 rounded bg-rose-600 hover:bg-rose-500"
-                  >
-                    Reject
-                  </button>
-                </div>
-              </li>
+              </CometCard>
             ))}
             {pending.length === 0 && (
               <li className="text-neutral-500">No requests.</li>
             )}
-          </ul>
+          </div>
         </div>
       )}
 
