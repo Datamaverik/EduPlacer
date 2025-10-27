@@ -1,115 +1,87 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { Sidebar, SidebarBody, SidebarLink } from "../../components/ui/sidebar";
+import {
+  IconArrowLeft,
+  IconBrandTabler,
+  IconSettings,
+  IconUserBolt,
+} from "@tabler/icons-react";
+import { motion } from "motion/react";
+import { cn } from "@/lib/utils";
+import ProfilePage from "./profile";
 
-export default function ProfilePage() {
-  const router = useRouter();
-  const [me, setMe] = useState<{
-    id: string;
-    name: string;
-    imageUrl: string;
-  } | null>(null);
-  const [uploading, setUploading] = useState(false);
-  const [error, setError] = useState("");
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-      return;
-    }
-    (async () => {
-      const query = `query { me { id name imageUrl } }`;
-      const res = await fetch("/api/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ query }),
-      });
-      const j = await res.json();
-      setMe(j.data?.me ?? null);
-    })();
-  }, [router]);
-
-  async function onFileChange(e: React.ChangeEvent<HTMLInputElement>) {
-    setError("");
-    const file = e.target.files?.[0];
-    if (!file) return;
-    if (!file.type.startsWith("image/")) {
-      setError("Please select an image file");
-      return;
-    }
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login");
-      return;
-    }
-
-    setUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append("file", file);
-      const up = await fetch("/api/upload", { method: "POST", body: fd });
-      const upj = await up.json();
-      if (!up.ok) {
-        throw new Error(upj?.error || "Upload failed");
-      }
-
-      const mutation = `mutation($url: String!) { updateProfileImage(imageUrl: $url) { id imageUrl } }`;
-      const res = await fetch("/api/graphql", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({ query: mutation, variables: { url: upj.url } }),
-      });
-      const j = await res.json();
-      if (j.errors)
-        throw new Error(j.errors[0]?.message || "Failed to update profile");
-      setMe((m) =>
-        m ? { ...m, imageUrl: j.data.updateProfileImage.imageUrl } : m
-      );
-    } catch (err: any) {
-      setError(String(err?.message || err));
-    } finally {
-      setUploading(false);
-      e.target.value = "";
-    }
-  }
-
+export function SidebarDemo() {
+  const links = [
+    {
+      label: "Profile",
+      href: "/profile",
+      icon: (
+        <IconUserBolt className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+    {
+      label: "Logout",
+      href: "/login",
+      icon: (
+        <IconArrowLeft className="h-5 w-5 shrink-0 text-neutral-700 dark:text-neutral-200" />
+      ),
+    },
+  ];
+  const [open, setOpen] = useState(false);
   return (
-    <div className="min-h-screen bg-neutral-950 text-white flex items-center justify-center p-6">
-      <div className="w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-4">Your Profile</h1>
-        <div className="bg-neutral-900 rounded-lg p-4 border border-neutral-800">
-          <div className="flex items-center gap-4">
-            <img
-              src={me?.imageUrl || "/images/placeholder-avatar.svg"}
-              alt="Avatar"
-              className="w-20 h-20 rounded-full object-cover border border-neutral-800"
-            />
-            <div className="flex-1">
-              <p className="text-lg font-semibold">{me?.name ?? ""}</p>
-              <label className="mt-2 inline-flex items-center gap-2 text-sm cursor-pointer">
-                <span className="px-3 py-2 rounded-md border border-neutral-700 bg-neutral-800 hover:bg-neutral-700">
-                  {uploading ? "Uploading..." : "Change photo"}
-                </span>
-                <input
-                  type="file"
-                  accept="image/*"
-                  className="hidden"
-                  onChange={onFileChange}
-                  disabled={uploading}
-                />
-              </label>
+    <div
+      className={cn(
+        "mx-auto flex w-full flex-1 flex-col overflow-hidden border-neutral-200 bg-gray-100 md:flex-row dark:border-neutral-700 dark:bg-neutral-800",
+        "h-[100vh]" // for your use case, use `h-screen` instead of `h-[60vh]`
+      )}
+    >
+      <Sidebar open={open} setOpen={setOpen}>
+        <SidebarBody className="justify-between gap-10">
+          <div className="flex flex-1 flex-col overflow-x-hidden overflow-y-auto">
+            {open ? <Logo /> : <LogoIcon />}
+            <div className="mt-8 flex flex-col gap-2">
+              {links.map((link, idx) => (
+                <SidebarLink key={idx} link={link} />
+              ))}
             </div>
           </div>
-          {error && <p className="text-red-400 mt-3 text-sm">{error}</p>}
-        </div>
-      </div>
+        </SidebarBody>
+      </Sidebar>
+      <ProfilePage/>
     </div>
   );
 }
+
+// Default export required by Next.js App Router
+export default function Page() {
+  return <SidebarDemo />;
+}
+export const Logo = () => {
+  return (
+    <a
+      href="/landing"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
+    >
+      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
+      <motion.span
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="font-medium whitespace-pre text-black dark:text-white"
+      >
+        Edu Placer
+      </motion.span>
+    </a>
+  );
+};
+export const LogoIcon = () => {
+  return (
+    <a
+      href="#"
+      className="relative z-20 flex items-center space-x-2 py-1 text-sm font-normal text-black"
+    >
+      <div className="h-5 w-6 shrink-0 rounded-tl-lg rounded-tr-sm rounded-br-lg rounded-bl-sm bg-black dark:bg-white" />
+    </a>
+  );
+};
+

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { SparklesCore } from "../../components/ui/sparkles";
 import { useRouter } from "next/navigation";
 import { CometCard } from "../../components/ui/comet-card";
 
@@ -153,35 +152,13 @@ export function SparklesPreview() {
   if (loading) return <div style={{ padding: 24 }}>Loading...</div>;
 
   return (
-    <div className="min-h-screen w-full bg-black flex flex-col items-center overflow-y-auto">
-      <h1 className="md:text-7xl text-3xl lg:text-9xl font-bold text-center text-white relative z-20 mt-8">
-        Welcome, {user ? user.name : "User"}
-      </h1>
-      <div className="w-[40rem] h-40 relative mt-6">
-        {/* Gradients */}
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-[2px] w-3/4 blur-sm" />
-        <div className="absolute inset-x-20 top-0 bg-gradient-to-r from-transparent via-indigo-500 to-transparent h-px w-3/4" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-[5px] w-1/4 blur-sm" />
-        <div className="absolute inset-x-60 top-0 bg-gradient-to-r from-transparent via-sky-500 to-transparent h-px w-1/4" />
-
-        <SparklesCore
-          background="transparent"
-          minSize={0.4}
-          maxSize={1}
-          particleDensity={1200}
-          className="w-full h-full"
-          particleColor="#FFFFFF"
-        />
-
-        <div className="absolute inset-0 w-full h-full bg-black [mask-image:radial-gradient(350px_200px_at_top,transparent_20%,white)]"></div>
-      </div>
-
+    <div className="min-h-screen w-full bg-black flex flex-col items-center overflow-y-auto scrollbar-hide">
       {error && <p className="text-red-400 mt-4">{error}</p>}
 
       {user?.role === "MENTEE" && (
         <div className="w-full max-w-5xl px-6 mt-8 text-white">
           <h2 className="text-2xl font-semibold mt-8 mb-2">Search mentors</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-3 mb-3">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3">
             <input
               className="rounded-lg border border-neutral-800 bg-neutral-950 p-2"
               placeholder="Name"
@@ -241,9 +218,9 @@ export function SparklesPreview() {
           <h2 className="text-2xl text-center mt-4 font-semibold">
             Recommended mentors
           </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {recommended.map((m) => (
-              <CometCard key={m.id}>
+              <CometCard key={m.id} className="w-80">
                 <button
                   type="button"
                   className="my-10 flex w-full cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-8 md:p-4"
@@ -299,7 +276,7 @@ export function SparklesPreview() {
           <ul className="space-y-2">
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {mentees.map((m) => (
-                <CometCard>
+                <CometCard className="w-80">
                   <button
                     type="button"
                     className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
@@ -316,7 +293,7 @@ export function SparklesPreview() {
                           loading="lazy"
                           className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover contrast-75"
                           alt="Invite background"
-                          src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                          src={m?.imageUrl || "/images/placeholder-avatar.svg"}
                           style={{
                             boxShadow: "rgba(0, 0, 0, 0.05) 0px 5px 6px 0px",
                             opacity: 1,
@@ -344,7 +321,7 @@ export function SparklesPreview() {
           <h2 className="text-2xl font-semibold mt-8 mb-2">Pending requests</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {pending.map((r) => (
-              <CometCard>
+              <CometCard className="w-80">
                 <div
                   className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
                   aria-label="View invite F7RA"
@@ -360,7 +337,7 @@ export function SparklesPreview() {
                         loading="lazy"
                         className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover contrast-75"
                         alt="Invite background"
-                        src="https://images.unsplash.com/photo-1505506874110-6a7a69069a08?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        src={r?.imageUrl || "/images/placeholder-avatar.svg"}
                         style={{
                           boxShadow: "rgba(0, 0, 0, 0.05) 0px 5px 6px 0px",
                           opacity: 1,
