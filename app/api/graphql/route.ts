@@ -167,7 +167,13 @@ const resolvers = {
       if ((me.companiesInterested ?? []).length > 0) {
         or.push({ companies: { hasSome: me.companiesInterested } });
       }
-      const where: any = { role: "MENTOR" };
+      // Exclude mentors who already accepted this mentee's request
+      const where: any = {
+        role: "MENTOR",
+        mentorRequestsReceived: {
+          none: { menteeId: me.id, status: "ACCEPTED" },
+        },
+      } as any;
       if (or.length > 0) where.OR = or;
       return prisma.user.findMany({
         where,

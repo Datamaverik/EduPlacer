@@ -99,21 +99,22 @@ export default function ProfilePage() {
                 src={me?.imageUrl || "/images/placeholder-avatar.svg"}
                 width={300}
                 height={300}
-                cellSize={3}
-                dotScale={0.9}
+                cellSize={2}
+                dotScale={0.8}
                 shape="square"
-                backgroundColor="#000000"
-                dropoutStrength={0.4}
+                backgroundColor="rgb(23 23 23)"
+                dropoutStrength={0}
                 interactive
-                distortionStrength={3}
+                distortionStrength={15}
                 distortionRadius={80}
-                distortionMode="swirl"
-                followSpeed={0.2}
-                jitterStrength={4}
-                jitterSpeed={4}
+                distortionMode="attract"
+                followSpeed={0.4}
+                jitterStrength={5}
+                jitterSpeed={5}
                 sampleAverage
+                fadeOnLeave
                 tintColor="#FFFFFF"
-                tintStrength={0.2}
+                tintStrength={0}
                 className="rounded-xl border border-neutral-800 shadow-lg"
               />
             </div>

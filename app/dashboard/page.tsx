@@ -116,7 +116,7 @@ export function SparklesPreview() {
   async function fetchMentorData() {
     const token = localStorage.getItem("token");
     if (!token) return;
-    const query = `query M { myMentees { id name email branch domain yearOfStudy } myPendingRequests { mentee { id name email } } }`;
+    const query = `query M { myMentees { id name email branch domain imageUrl yearOfStudy } myPendingRequests { mentee { id name email imageUrl } } }`;
     const res = await fetch("/api/graphql", {
       method: "POST",
       headers: {
@@ -274,9 +274,9 @@ export function SparklesPreview() {
         <div className="w-full max-w-5xl px-6 mt-8 text-white">
           <h2 className="text-2xl font-semibold mb-2">Your mentees</h2>
           <ul className="space-y-2">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {mentees.map((m) => (
-                <CometCard className="w-80">
+                <CometCard key={m.id} className="w-80">
                   <button
                     type="button"
                     className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
@@ -319,9 +319,9 @@ export function SparklesPreview() {
           </ul>
 
           <h2 className="text-2xl font-semibold mt-8 mb-2">Pending requests</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {pending.map((r) => (
-              <CometCard className="w-80">
+              <CometCard key={r.mentee.id} className="w-80">
                 <div
                   className="my-10 flex w-80 cursor-pointer flex-col items-stretch rounded-[16px] border-0 bg-[#1F2121] p-2 md:my-7 md:p-4"
                   aria-label="View invite F7RA"
@@ -337,7 +337,10 @@ export function SparklesPreview() {
                         loading="lazy"
                         className="absolute inset-0 h-full w-full rounded-[16px] bg-[#000000] object-cover contrast-75"
                         alt="Invite background"
-                        src={r?.imageUrl || "/images/placeholder-avatar.svg"}
+                        src={
+                          r?.mentee?.imageUrl ||
+                          "/images/placeholder-avatar.svg"
+                        }
                         style={{
                           boxShadow: "rgba(0, 0, 0, 0.05) 0px 5px 6px 0px",
                           opacity: 1,
@@ -347,7 +350,7 @@ export function SparklesPreview() {
                   </div>
                   <div className="flex flex-col items-center">
                     <div className="font-medium">{r.mentee.name}</div>
-                    <div className="text-sm text-neutral-400">
+                    <div className="text-sm mt-[-3] mb-1 text-neutral-400">
                       {r.mentee.email}
                     </div>
                     <div className="space-x-2">
